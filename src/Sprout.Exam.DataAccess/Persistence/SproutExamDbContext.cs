@@ -4,10 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Sprout.Exam.Domain.Models;
 using System.Data;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Sprout.Exam.DataAccess.Persistence
 {
-
+    [ExcludeFromCodeCoverage]
     public class SproutExamDbContext : ApiAuthorizationDbContext<Sprout.Exam.Domain.Models.ApplicationUser>
     {
         private TransactionScope _transactionScope;
