@@ -14,8 +14,4 @@
 	  <ProjectReference Include="..\Sprout.Exam.Common\Sprout.Exam.Common.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="DTOs\Request\" />
-	</ItemGroup>
-
 </Project>

@@ -12,5 +12,8 @@
 
         public const string DB_NOT_FOUND = "{0} record not found.";
         public const string DB_FOUND = "{0} record found.";
+
+
+        public const string SALARY_CALCULATION_DONE = "Salary computation finished.";
     }
 }

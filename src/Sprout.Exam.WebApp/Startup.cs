@@ -6,12 +6,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Sprout.Exam.DataAccess.Persistence;
-using Sprout.Exam.Domain.Models;
+using Microsoft.Extensions.Logging;
 using Sprout.Exam.Business;
 using Sprout.Exam.DataAccess;
-using Microsoft.Extensions.Logging;
-using Sprout.Exam.DataAccess.Repository.Identity;
+using Sprout.Exam.DataAccess.Persistence;
+using Sprout.Exam.Domain.Models;
 
 namespace Sprout.Exam.WebApp
 {
@@ -29,7 +28,10 @@ namespace Sprout.Exam.WebApp
         {
             services.AddDbContext<SproutExamDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("DefaultConnection"), opts =>
+                    {
+                        opts.MigrationsAssembly("Sprout.Exam.DataAccess");
+                    }));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 

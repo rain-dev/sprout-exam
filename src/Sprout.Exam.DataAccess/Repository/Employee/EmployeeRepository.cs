@@ -1,6 +1,4 @@
-﻿using IdentityModel;
-using Microsoft.EntityFrameworkCore;
-using Sprout.Exam.DataAccess.Persistence;
+﻿using Sprout.Exam.DataAccess.Persistence;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -26,5 +24,6 @@ namespace Sprout.Exam.DataAccess.Repository.Employee
 
             return -1;
         }
+
     }
 }

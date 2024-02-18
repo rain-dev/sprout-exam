@@ -1,0 +1,1 @@
+﻿global using CommonEnums = Sprout.Exam.Common.Enums;

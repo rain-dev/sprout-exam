@@ -5,7 +5,6 @@ using NSubstitute;
 using NSubstitute.ExceptionExtensions;
 using Sprout.Exam.Business.Features.Employee.Command;
 using Sprout.Exam.Common.Constants;
-using Sprout.Exam.Common.Enums;
 using Sprout.Exam.DataAccess.Repository.Employee;
 using Sprout.Exam.Domain.DTOs.Employee.Commands;
 using Sprout.Exam.Domain.Models;
@@ -14,19 +13,20 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Sprout.Exam.Tests
+namespace Sprout.Exam.Business.Test.Features.Employee
 {
     public class CreateEmployeeCommandTests
     {
         [Theory]
-        [InlineAutoData("John Doe", -18, "23151", EmployeeType.Regular)]
-        [InlineAutoData("John Cruz", -23, "123123123", EmployeeType.Regular)]
-        [InlineAutoData("John Jose", -20, "15123", EmployeeType.Contractual)]
+        [InlineAutoData("John Doe", -18, "23151", 4444.0, CommonEnums.EmployeeType.Regular)]
+        [InlineAutoData("John Cruz", -23, "123123123", 9999.2, CommonEnums.EmployeeType.Regular)]
+        [InlineAutoData("John Jose", -20, "15123", 12315.2, CommonEnums.EmployeeType.Contractual)]
         public async Task Handle_Should_Save_Employee_And_Return_Success_Response(
             string name,
             int yearsMinus,
             string tin,
-            EmployeeType employeeType)
+            decimal salary,
+            CommonEnums.EmployeeType employeeType)
         {
             // Arrange
             var request = new CreateEmployeeRequestDto
@@ -34,13 +34,14 @@ namespace Sprout.Exam.Tests
                 FullName = name,
                 Birthdate = DateTime.Now.AddYears(yearsMinus),
                 Tin = tin,
+                Salary = salary,
                 TypeId = employeeType // Example type ID
             };
 
             var logger = Substitute.For<ILogger<CreateEmployeeCommand>>();
             var employeeRepository = Substitute.For<IEmployeeRepository>();
 
-            employeeRepository.SaveAsync(Arg.Any<Employee>(), Arg.Any<CancellationToken>())
+            employeeRepository.SaveAsync(Arg.Any<Domain.Models.Employee>(), Arg.Any<CancellationToken>())
                 .Returns(1);
             
             var command = new CreateEmployeeCommand(logger, employeeRepository);
@@ -60,7 +61,8 @@ namespace Sprout.Exam.Tests
             string name,
             int yearsMinus,
             string tin,
-            EmployeeType employeeType)
+            decimal salary,
+            CommonEnums.EmployeeType employeeType)
         {
             // Arrange
             var request = new CreateEmployeeRequestDto
@@ -68,6 +70,7 @@ namespace Sprout.Exam.Tests
                 FullName = name,
                 Birthdate = DateTime.Now.AddYears(yearsMinus),
                 Tin = tin,
+                Salary = salary,
                 TypeId = employeeType // Example type ID
             };
 
@@ -75,7 +78,7 @@ namespace Sprout.Exam.Tests
             var employeeRepository = Substitute.For<IEmployeeRepository>();
 
             employeeRepository
-                .SaveAsync(Arg.Any<Employee>(), Arg.Any<CancellationToken>())
+                .SaveAsync(Arg.Any<Domain.Models.Employee>(), Arg.Any<CancellationToken>())
                 .Returns(-1);
 
             var command = new CreateEmployeeCommand(logger, employeeRepository);
@@ -96,7 +99,8 @@ namespace Sprout.Exam.Tests
             string name,
             int yearsMinus,
             string tin,
-            EmployeeType employeeType)
+            decimal salary,
+            CommonEnums.EmployeeType employeeType)
         {
             // Arrange
             var request = new CreateEmployeeRequestDto
@@ -104,6 +108,7 @@ namespace Sprout.Exam.Tests
                 FullName = name,
                 Birthdate = DateTime.Now.AddYears(yearsMinus),
                 Tin = tin,
+                Salary = salary,
                 TypeId = employeeType // Example type ID
             };
 
@@ -112,7 +117,7 @@ namespace Sprout.Exam.Tests
 
 
             employeeRepository
-                .SaveAsync(Arg.Any<Employee>(), Arg.Any<CancellationToken>())
+                .SaveAsync(Arg.Any<Domain.Models.Employee>(), Arg.Any<CancellationToken>())
                 .Throws(f => new Exception());
 
             var command = new CreateEmployeeCommand(logger, employeeRepository);

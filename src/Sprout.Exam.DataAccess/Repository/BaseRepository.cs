@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace Sprout.Exam.DataAccess.Repository
 {
     [ExcludeFromCodeCoverage]
-    public class BaseRepository<TEntity, TId> : IRepository<TEntity, TId>
+    public abstract class BaseRepository<TEntity, TId> : IRepository<TEntity, TId>
         where TEntity : BaseEntity<TId>
         where TId : struct
     {

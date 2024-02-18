@@ -6,7 +6,7 @@ export class EmployeesIndex extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { employees: [], loading: true };
+    this.state = { employees: [], loading: true, hasData: false };
   }
 
   componentDidMount() {
@@ -48,6 +48,8 @@ export class EmployeesIndex extends Component {
   }
 
   render() {
+
+
     let contents = this.state.loading
       ? <p><em>Loading...</em></p>
       : EmployeesIndex.renderEmployeesTable(this.state.employees,this);
@@ -57,7 +59,8 @@ export class EmployeesIndex extends Component {
         <h1 id="tabelLabel" >Employees</h1>
         <p>This page should fetch data from the server.</p>
         <p><button type='button' className='btn btn-success mr-2' onClick={() => this.props.history.push("/employees/create")} >Create</button></p>
-        {contents}
+        {this.state.hasData && contents}
+        {!this.state.hasData && <p><em>No employee data found.</em></p>}
       </div>
     );
   }
@@ -67,8 +70,14 @@ export class EmployeesIndex extends Component {
     const response = await fetch('api/employees', {
       headers: !token ? {} : { 'Authorization': `Bearer ${token}` }
     });
-    const data = await response.json();
-    this.setState({ employees: data, loading: false });
+    if (response.status === 200) {
+      const data = await response.json();
+      this.setState({ employees: data, hasData: true, loading: false });
+    }
+
+    if (response.status === 401)
+      alert('Unauthorized, please login again.')
+
   }
 
   async deleteEmployee(id) {

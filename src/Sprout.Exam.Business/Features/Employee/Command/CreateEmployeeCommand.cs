@@ -4,13 +4,15 @@ using Sprout.Exam.Common.Constants;
 using Sprout.Exam.Common.Mapping;
 using Sprout.Exam.DataAccess.Repository.Employee;
 using Sprout.Exam.Domain.DTOs;
+using Sprout.Exam.Domain.DTOs.Employee;
 using Sprout.Exam.Domain.DTOs.Employee.Commands;
+using Sprout.Exam.Domain.DTOs.Employee.Query;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Sprout.Exam.Business.Features.Employee.Command
 {
-    public class CreateEmployeeCommand : IRequestHandler<CreateEmployeeRequestDto, ResponseDto<EmployeeDto>>
+    public class CreateEmployeeCommand : IRequestHandler<CreateEmployeeRequestDto, ResponseDto<ReadEmployeeDto>>
     {
         private readonly ILogger<CreateEmployeeCommand> _logger;
         private readonly IEmployeeRepository _employeeRepository;
@@ -23,7 +25,7 @@ namespace Sprout.Exam.Business.Features.Employee.Command
             _employeeRepository = employeeRepository;
         }
 
-        public async Task<ResponseDto<EmployeeDto>> Handle(CreateEmployeeRequestDto request, CancellationToken cancellationToken)
+        public async Task<ResponseDto<ReadEmployeeDto>> Handle(CreateEmployeeRequestDto request, CancellationToken cancellationToken)
         {
             try
             {
@@ -34,13 +36,13 @@ namespace Sprout.Exam.Business.Features.Employee.Command
                 var result = await _employeeRepository.SaveAsync(entity, cancellationToken);
 
                 if (result <= 0)
-                    return new ResponseDto<EmployeeDto>(null)
+                    return new ResponseDto<ReadEmployeeDto>(null)
                     {
                         Message = string.Format(MessageConstants.DB_WRITE_FAILED, nameof(Employee)),
                         Success = false
                     };
 
-                return new ResponseDto<EmployeeDto>(mapper.MapFromEntity(entity))
+                return new ResponseDto<ReadEmployeeDto>(mapper.MapFromEntity(entity))
                 {
                     Message = string.Format(MessageConstants.DB_WRITE_SUCCESS, nameof(Employee)),
                     Success = true

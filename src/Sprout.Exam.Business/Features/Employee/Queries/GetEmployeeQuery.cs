@@ -1,12 +1,11 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
-using Sprout.Exam.Business.Features.Employee.Command;
 using Sprout.Exam.Common.Constants;
 using Sprout.Exam.Common.Mapping;
 using Sprout.Exam.DataAccess.Repository.Employee;
 using Sprout.Exam.Domain.DTOs;
+using Sprout.Exam.Domain.DTOs.Employee;
 using Sprout.Exam.Domain.DTOs.Employee.Query;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 

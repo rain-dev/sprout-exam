@@ -20,6 +20,7 @@ namespace Sprout.Exam.DataAccess.Persistence
 
         }
 
+        public virtual DbSet<EmployeeType> EmployeeTypes { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
 
         public TransactionScope BeginTransaction(IsolationLevel isolationLevel)
@@ -34,6 +35,28 @@ namespace Sprout.Exam.DataAccess.Persistence
             }
 
             return _transactionScope;
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.Entity<EmployeeType>()
+                .HasData(new EmployeeType[] 
+                {
+                    new ()
+                    {
+                        Id = 1,
+                        Tax = (decimal)12.0,
+                        TypeName = "Regular"
+                    }, 
+                    new ()
+                    {
+                        Id = 2,
+                        Tax = null,
+                        TypeName = "Contractual"
+                    }
+                });
         }
     }
 

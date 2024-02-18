@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 using Xunit;
 
 
-namespace Sprout.Exam.Tests
+namespace Sprout.Exam.Business.Test.Features.Employee
 {
     public class DeleteEmployeeCommandTests
     {

@@ -16,7 +16,7 @@ namespace Sprout.Exam.DataAccess.Persistence.Migrations
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.0-rc.1.20417.2");
+                .HasAnnotation("ProductVersion", "5.0.4");
 
             modelBuilder.Entity("Sprout.Exam.WebApp.Models.ApplicationUser", b =>
                 {

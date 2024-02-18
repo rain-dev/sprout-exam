@@ -1,22 +1,19 @@
-﻿using AutoFixture.Xunit2;
+﻿using AutoFixture;
+using AutoFixture.Xunit2;
+using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
-using Sprout.Exam.Business.Features.Employee.Command;
-using Sprout.Exam.Common.Constants;
-using Sprout.Exam.DataAccess.Repository.Employee;
-using Sprout.Exam.Domain.DTOs.Employee.Commands;
-using System.Threading.Tasks;
-using System.Threading;
-using System;
-using Xunit;
-using Sprout.Exam.Domain.DTOs.Employee.Query;
-using Sprout.Exam.Business.Features.Employee.Queries;
-using System.Linq.Expressions;
-using AutoFixture;
-using System.Linq;
-using FluentAssertions;
-using System.Collections.Generic;
 using NSubstitute.ExceptionExtensions;
+using Sprout.Exam.Business.Features.Employee.Queries;
+using Sprout.Exam.DataAccess.Repository.Employee;
+using Sprout.Exam.Domain.DTOs.Employee.Query;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading;
+using System.Threading.Tasks;
+using Xunit;
 
 namespace Sprout.Exam.Business.Test.Features.Employee
 {

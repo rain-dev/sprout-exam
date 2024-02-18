@@ -4,13 +4,15 @@ using Sprout.Exam.Common.Constants;
 using Sprout.Exam.Common.Mapping;
 using Sprout.Exam.DataAccess.Repository.Employee;
 using Sprout.Exam.Domain.DTOs;
+using Sprout.Exam.Domain.DTOs.Employee;
 using Sprout.Exam.Domain.DTOs.Employee.Commands;
+using Sprout.Exam.Domain.DTOs.Employee.Query;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Sprout.Exam.Business.Features.Employee.Command
 {
-    public class DeleteEmployeeCommand : IRequestHandler<DeleteEmployeeRequestDto, ResponseDto<EmployeeDto>>
+    public class DeleteEmployeeCommand : IRequestHandler<DeleteEmployeeRequestDto, ResponseDto<ReadEmployeeDto>>
     {
         private readonly ILogger<DeleteEmployeeCommand> _logger;
         private readonly IEmployeeRepository _employeeRepository;
@@ -23,7 +25,7 @@ namespace Sprout.Exam.Business.Features.Employee.Command
             _employeeRepository = employeeRepository;
         }
 
-        public async Task<ResponseDto<EmployeeDto>> Handle(DeleteEmployeeRequestDto request, CancellationToken cancellationToken)
+        public async Task<ResponseDto<ReadEmployeeDto>> Handle(DeleteEmployeeRequestDto request, CancellationToken cancellationToken)
         {
             try
             {
@@ -33,13 +35,13 @@ namespace Sprout.Exam.Business.Features.Employee.Command
                 var result = await _employeeRepository.DeleteAsync(request.Id, cancellationToken);
 
                 if (result <= 0)
-                    return new ResponseDto<EmployeeDto>(null)
+                    return new ResponseDto<ReadEmployeeDto>(null)
                     {
                         Message = string.Format(MessageConstants.DB_NOT_FOUND, nameof(Employee)),
                         Success = false
                     };
 
-                return new ResponseDto<EmployeeDto>(null)
+                return new ResponseDto<ReadEmployeeDto>(null)
                 {
                     Message = string.Format(MessageConstants.DB_DELETE_SUCCESS, nameof(Employee)),
                     Success = true
