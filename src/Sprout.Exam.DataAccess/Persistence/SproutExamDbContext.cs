@@ -1,10 +1,10 @@
-﻿using IdentityServer4.EntityFramework.Options;
-using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
+﻿using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Sprout.Exam.Domain.Models;
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
+using Duende.IdentityServer.EntityFramework.Options;
 
 namespace Sprout.Exam.DataAccess.Persistence
 {
